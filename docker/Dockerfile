@@ -1,4 +1,4 @@
-FROM tensorflow/tensorflow:1.15.4-gpu-py3-jupyter
+FROM tensorflow/tensorflow:2.7.3-gpu-jupyter
 
 LABEL maintainer="ko.sugawara@ens-lyon.fr"
 
@@ -14,4 +14,6 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     && rm -rf /var/lib/apt/lists/*
 
 RUN python3 -m pip install --upgrade pip
-RUN pip install stardist gputools edt
+RUN python3 -m pip install gputools edt imagecodecs natsort
+COPY . /src
+RUN python3 -m pip install /src && rm -rf /src

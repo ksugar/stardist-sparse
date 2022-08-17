@@ -21,7 +21,7 @@ Please change the `NVIDIA_DRIVER_VERSION` depending on your environment.
 
 This argument is used to install an appropriate package for running OpenCL.
 
-The default value is `455` and `390`|`410`|`418`|`430`|`435`|`440`|`450`|`455`|`460` are available.
+The default value is `455` and `390`|`410`|`418`|`430`|`435`|`440`|`450`|`455`|`460`|`470` are available.
 
 ### Usage example
 
