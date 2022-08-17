@@ -303,7 +303,13 @@ class StarDistBase(BaseModel):
                             'mae': masked_loss_mae,
                             'iou': masked_loss_iou,
                             }[self.config.train_dist_loss]
-        prob_loss = 'binary_crossentropy'
+        # prob_loss = 'binary_crossentropy'
+
+        def prob_loss(true_prob, pred_prob):
+            mask = tf.not_equal(true_prob, -1)
+            true_prob = tf.boolean_mask(true_prob, mask)
+            pred_prob = tf.boolean_mask(pred_prob, mask)
+            return tf.keras.losses.BinaryCrossentropy()(true_prob, pred_prob)
 
 
         def split_dist_true_mask(dist_true_mask):

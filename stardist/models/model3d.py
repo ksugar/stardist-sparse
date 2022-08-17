@@ -65,6 +65,9 @@ class StarDistData3D(StarDistDataBase):
 
         X, Y = tuple(zip(*tuple(self.augmenter(_x, _y) for _x, _y in zip(X,Y))))
 
+        Y_ignore = [lbl == -1 for lbl in Y]
+        Y = [np.where(ignore, 0, lbl) for lbl, ignore in zip(Y, Y_ignore)]
+
         if len(Y) == 1:
             X = X[0][np.newaxis]
         else:
@@ -85,6 +88,11 @@ class StarDistData3D(StarDistDataBase):
             dist = np.stack(tmp, out=self.out_star_dist3D[:len(Y)])
 
         prob = dist_mask = np.expand_dims(prob, -1)
+
+        if len(Y) == 1:
+            prob = np.where(Y_ignore[0][self.ss_grid[1:]][np.newaxis, ..., np.newaxis], -1, prob) 
+        else:
+            prob = np.stack([np.where(ignore[self.ss_grid[1:]][..., np.newaxis], -1, _prob) for _prob, ignore in zip(prob, Y_ignore)])
 
         # append dist_mask to dist as additional channel
         dist = np.concatenate([dist,dist_mask],axis=-1)

@@ -59,6 +59,8 @@ class StarDistData2D(StarDistDataBase):
 
         X, Y = tuple(zip(*tuple(self.augmenter(_x, _y) for _x, _y in zip(X,Y))))
 
+        Y_ignore = [lbl == -1 for lbl in Y]
+        Y = [np.where(ignore, 0, lbl) for lbl, ignore in zip(Y, Y_ignore)]
 
         prob = np.stack([edt_prob(lbl[self.b][self.ss_grid[1:3]]) for lbl in Y])
         # prob = np.stack([edt_prob(lbl[self.b]) for lbl in Y])
@@ -73,6 +75,8 @@ class StarDistData2D(StarDistDataBase):
             # directly subsample with grid
             dist      = np.stack([star_dist(lbl,self.n_rays,mode=self.sd_mode, grid=self.grid) for lbl in Y])
             dist_mask = prob
+        
+        prob = np.stack([np.where(ignore[self.b][self.ss_grid[1:3]], -1, _prob) for _prob, ignore in zip(prob, Y_ignore)])
 
         X = np.stack(X)
         if X.ndim == 3: # input image has no channel axis

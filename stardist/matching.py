@@ -150,6 +150,8 @@ def matching(y_true, y_pred, thresh=0.5, criterion='iou', report_matches=False):
     Matching(criterion='iou', thresh=0.5, fp=1, tp=0, fn=1, precision=0, recall=0, accuracy=0, f1=0, n_true=1, n_pred=1, mean_true_score=0.0, mean_matched_score=0.0, panoptic_quality=0.0)
 
     """
+    y_pred = y_pred[y_true != -1]
+    y_true = y_true[y_true != -1]
     _check_label_array(y_true,'y_true')
     _check_label_array(y_pred,'y_pred')
     y_true.shape == y_pred.shape or _raise(ValueError("y_true ({y_true.shape}) and y_pred ({y_pred.shape}) have different shapes".format(y_true=y_true, y_pred=y_pred)))
