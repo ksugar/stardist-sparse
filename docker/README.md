@@ -14,8 +14,8 @@ This Docker image is extended from `tensorflow/tensorflow:1.15.4-gpu-py3-jupyter
 
 ### Building image
 
-    # assuming that you are in the docker/ directory
-    docker build -t stardist --build-arg NVIDIA_DRIVER_VERSION=455 .
+    # assuming that you are in the project root directory
+    docker build -t stardist --build-arg NVIDIA_DRIVER_VERSION=470 -f docker/Dockerfile .
 
 Please change the `NVIDIA_DRIVER_VERSION` depending on your environment.
 
