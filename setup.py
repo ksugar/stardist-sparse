@@ -78,7 +78,7 @@ clipper_src = sorted(glob(path.join(clipper_root, '*.cpp*')))[::-1]
 
 
 setup(
-    name='stardist',
+    name='stardist-sparse',
     version=__version__,
     description='StarDist - Object Detection with Star-convex Shapes',
     long_description=long_description,
