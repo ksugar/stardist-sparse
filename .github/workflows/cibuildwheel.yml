@@ -49,7 +49,8 @@ jobs:
           CXX=/usr/bin/clang++
           CFLAGS=${CFLAGS} -I${HOMEBREW_PREFIX}/include
           CXXFLAGS=${CXXFLAGS} -I${HOMEBREW_PREFIX}/include
-          LDFLAGS=${LDFLAGS} -Wl,-rpath,${HOMEBREW_PREFIX}/lib -L${HOMEBREW_PREFIX}/lib -lomp
+          LDFLAGS=${LDFLAGS} -Wl,-rpath,${HOMEBREW_PREFIX}/lib -L${HOMEBREW_PREFIX}/lib -lomp -L/usr/local/opt/libomp/lib
+          CPPFLAGS=${CPPFLAGS} -I/usr/local/opt/libomp/include
           END
 
       - name: Build wheels for CPython (macOS)
