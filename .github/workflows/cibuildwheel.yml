@@ -120,7 +120,7 @@ jobs:
         shell: bash
         run: |
           ls -l dist
-          test -f "dist/stardist-${{ github.ref_name }}.tar.gz"
+          test -f "dist/stardist-sparse-${{ github.ref_name }}.tar.gz"
 
       - uses: pypa/gh-action-pypi-publish@release/v1
         name: Publish to PyPI
